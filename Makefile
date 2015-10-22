@@ -8,3 +8,5 @@ run: build
 		-e NODES='192.168.11.1' \
 		`cat CID`
 
+tag: build
+	docker tag -f `cat CID` s21g/vxlan
