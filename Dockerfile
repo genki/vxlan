@@ -5,5 +5,4 @@ RUN apk add --update iproute2 && rm -rf /var/cache/apk/*
 
 COPY ./init /
 
-EXPOSE 8472/udp
 ENTRYPOINT ["/init"]
