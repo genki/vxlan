@@ -1,0 +1,29 @@
+#!/bin/sh
+VIP=${VIP?"mandatory parameter: <ip>/<prefix>"}
+VNI=${VNI:='10'}
+VXLAN=${VXLAN:="vxlan$VNI"}
+IF=${IF:="eth0"}
+INDEX=${INDEX:="1"}
+NODES=${NODES:=""}
+
+eval `ipcalc -b $VIP`
+install(){
+  if [ "$INDEX" == "1" ]; then
+    ip link add $VXLAN type vxlan id $VNI dev $IF 2>/dev/null
+    ip link set $VXLAN up
+  else
+    until ip li show $VXLAN; do sleep 1; done
+  fi
+  ip a add $VIP broadcast $BROADCAST dev $VXLAN
+  for N in $NODES; do
+    bridge fdb append 00:00:00:00:00:00 dev $VXLAN dst $N
+  done
+}
+uninstall(){
+  ip li delete $VXLAN type vxlan
+}
+install
+trap 'uninstall' EXIT
+trap 'exit 0' SIGTERM
+tail -f /dev/null &
+wait
