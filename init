@@ -3,8 +3,8 @@ VIP=${VIP?"mandatory parameter: <ip>/<prefix>"}
 VNI=${VNI:='10'}
 VXLAN=${VXLAN:="vxlan$VNI"}
 IF=${IF:="eth0"}
-HOSTS=${HOSTS:=""}
 PORT=${PORT:="0"}
+HOSTS=`echo ${HOSTS:=""} | tr "," "\n"`
 eval `ipcalc -hb $VIP` # HOSTNAME and BROADCAST
 
 check(){
@@ -24,7 +24,7 @@ check "ip link set $VXLAN up"
 until addr_found; do
   check "ip a add $VIP broadcast $BROADCAST dev $VXLAN"
 done
-for H in $HOSTS; do
+for H in "$HOSTS"; do
   check "bridge fdb append 00:00:00:00:00:00 dev $VXLAN dst $H"
 done
 echo "$VXLAN installed ($VIP) on $IF"
