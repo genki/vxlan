@@ -26,7 +26,7 @@ And you need to
 
 Environment variables:
 
- * VIP: mandatory parameter: `<ip>/<prefix>`
+ * VIP: *mandatory parameter* `<ip>/<prefix>[,<ip>/<prefix>,...]`
  * VNI='10'
  * VXLAN="vxlan$VNI"
  * IF="eth0"
