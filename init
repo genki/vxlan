@@ -26,10 +26,10 @@ for I in $VIPS; do
   until addr_found $HOSTNAME; do
     check "ip a add $I broadcast $BROADCAST dev $VXLAN"
   done
-  for H in $HOSTS; do
-    check "bridge fdb append 00:00:00:00:00:00 dev $VXLAN dst $H"
-  done
   echo "$I added to $VXLAN"
+done
+for H in $HOSTS; do
+  check "bridge fdb append 00:00:00:00:00:00 dev $VXLAN dst $H"
 done
 trap "while vxlan_found; do ip link del $VXLAN; done" EXIT
 trap 'exit 0' SIGTERM
