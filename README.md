@@ -2,6 +2,8 @@
 
 Very simple overlay network provider designed as docker container.
 
+[![Docker Repository on Quay.io](https://quay.io/repository/s21g/vxlan/status "Docker Repository on Quay.io")](https://quay.io/repository/s21g/vxlan)
+
 **Usage**
 
 ```
