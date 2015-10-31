@@ -32,5 +32,6 @@ Environment variables:
  * VNI='10'
  * VXLAN="vxlan$VNI"
  * IF="eth0"
+ * MTU="1440"
  * HOSTS=""
  * PORT=${PORT:="0"}: `0` means to use default port 8472/udp

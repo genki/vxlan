@@ -4,6 +4,7 @@ VNI=${VNI:='10'}
 VXLAN=${VXLAN:="vxlan$VNI"}
 IF=${IF:="eth0"}
 PORT=${PORT:="0"}
+MTU=${MTU:="1410"}
 HOSTS=`echo ${HOSTS:=""} | tr "," "\n"`
 
 check(){
@@ -17,7 +18,7 @@ addr_found(){
 }
 
 until vxlan_found; do
-  ip link add $VXLAN type vxlan id $VNI dev $IF dstport $PORT
+  ip link add $VXLAN type vxlan id $VNI dev $IF mtu $MTU dstport $PORT
 done
 echo "$VXLAN installed on $IF"
 for I in $VIPS; do
