@@ -18,7 +18,7 @@ addr_found(){
 }
 
 until vxlan_found; do
-  ip link add $VXLAN type vxlan id $VNI dev $IF mtu $MTU dstport $PORT
+  ip link add $VXLAN mtu $MTU type vxlan id $VNI dev $IF dstport $PORT
 done
 echo "$VXLAN installed on $IF"
 for I in $VIPS; do

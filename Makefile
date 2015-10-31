@@ -9,8 +9,8 @@ run: build
 		`cat CID`
 
 tag: build
-	docker tag -f `cat CID` s21g/vxlan:latest
-	docker tag -f `cat CID` s21g/vxlan:`cat VERSION`
+	docker tag -f `cat CID` quay.io/s21g/vxlan:latest
+	docker tag -f `cat CID` quay.io/s21g/vxlan:`cat VERSION`
 
 release: tag
 	docker push s21g/vxlan:latest
